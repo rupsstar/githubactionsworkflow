@@ -31,9 +31,11 @@ jobs:
         with:
           python-version: '3.8'
       - name: Install dependencies
-        run: pip install -r requirement.txt
+        run: |
+          pip install -r requirement.txt
+          pip install pytest
       - name: Run tests
-        run: python model.py
+        run: pytest test_file_cases.py
   deploy:
     runs-on: ubuntu-latest
     needs: test
