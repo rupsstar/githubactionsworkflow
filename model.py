@@ -30,7 +30,7 @@ for column in df.select_dtypes(include=['float64', 'int64']).columns:
 # Encode categorical features
 label_encoders = {}
 categorical_features = [
-    'make', 'aspiration', 'body-style', 'drive-wheels', 
+    'make', 'aspiration', 'body-style', 'drive-wheels',
     'engine-location', 'engine-type', 'fuel-system', 'num-of-cylinders',
 ]
 for feature in categorical_features:
