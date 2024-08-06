@@ -25,8 +25,7 @@ for column in df.select_dtypes(include=['float64', 'int64']).columns:
 # Encode categorical features
 label_encoders = {}
 categorical_features = ['make', 'aspiration', 'body-style', 'drive-wheels', 
-                        'engine-location',
-                        'engine-type', 'fuel-system', 'num-of-cylinders']
+     'engine-location','engine-type', 'fuel-system', 'num-of-cylinders']
 for feature in categorical_features:
     le = LabelEncoder()
     df[feature] = le.fit_transform(df[feature])
@@ -66,7 +65,7 @@ knn = KNeighborsClassifier()
 
 # Set up the GridSearchCV
 grid_search = GridSearchCV(estimator=knn, 
-                           param_grid=param_grid, cv=5, n_jobs=-1, verbose=2)
+    param_grid=param_grid, cv=5, n_jobs=-1, verbose=2)
 
 # Fit the model using GridSearchCV
 grid_search.fit(X_train, y_train)
