@@ -13,6 +13,9 @@ column_names = [
     "num-of-cylinders", "engine-size", "fuel-system", "bore", "stroke",
     "compression-ratio", "horsepower", "peak-rpm", "city-mpg", "highway-mpg", "price"
 ]
+
+df = pd.read_csv(url, names=column_names, na_values="?")
+
 # Drop rows with missing target (fuel-type)
 df.dropna(subset=['fuel-type'], inplace=True)
 # Fill missing numerical values with column means
@@ -21,7 +24,9 @@ for column in df.select_dtypes(include=['float64', 'int64']).columns:
 
 # Encode categorical features
 label_encoders = {}
-categorical_features = ['make', 'aspiration', 'body-style', 'drive-wheels', 'engine-location', 'engine-type', 'fuel-system', 'num-of-cylinders']
+categorical_features = ['make', 'aspiration', 'body-style', 'drive-wheels', 
+                        'engine-location',
+                        'engine-type', 'fuel-system', 'num-of-cylinders']
 for feature in categorical_features:
     le = LabelEncoder()
     df[feature] = le.fit_transform(df[feature])
@@ -41,7 +46,8 @@ X = df[features]
 y = df['fuel-type']
 
 # Split data into training and test sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X,y,test_size=0.2, random_state=42)
 
 # Standardize the features
 scaler = StandardScaler()
@@ -59,7 +65,8 @@ param_grid = {
 knn = KNeighborsClassifier()
 
 # Set up the GridSearchCV
-grid_search = GridSearchCV(estimator=knn, param_grid=param_grid, cv=5, n_jobs=-1, verbose=2)
+grid_search = GridSearchCV(estimator=knn, 
+                           param_grid=param_grid, cv=5, n_jobs=-1, verbose=2)
 
 # Fit the model using GridSearchCV
 grid_search.fit(X_train, y_train)
@@ -72,7 +79,3 @@ accuracy = accuracy_score(y_test, y_pred)
 
 print(f"Best Parameters: {best_params}")
 print(f"Test Accuracy: {accuracy:.2f}")
-
-
-
-
